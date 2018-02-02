@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DNTX ICO Admin</title>
+    <meta charset="UTF-8">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript" src="web3_v1_0.min.js"></script>
+    <script type="text/javascript" src="ico.js"></script>
+    <link rel="stylesheet" href="style.css" type='text/css'/>
+</head>
+<body>
+<h1>DNTX ICO Admin</h1>
+<div class="error" id="errormsg"></div>
+<h2>0. Load contracts</h2>
+<form id="loadContractsForm">
+    <label>Token ABI:
+        <textarea id="tokenABI" readonly class="abi"></textarea>
+    </label>
+    <label>Crowdsale ABI:
+        <textarea id="crowdsaleABI" readonly  class="abi"></textarea>
+    </label>
+</form>
+
+<div>Current time:</td><td><input type="text" id="clock" name="clock" value="" readonly class="time"> (Z = UTC timezone, ISO8601 format)</div>
+
+<h2>1. Publish Crowdsale</h2>
+<form id="publishContractsForm">
+    <div><input type="button" id="publishCrowdsale" value="Publish"></div>
+    <div><label>Transaction: <input type="text" readonly name="publishedTx" value="" class="ethTx"></label></div>
+    <div><label>Crowdsale Published at: <input type="text" readonly name="publishedAddress" value="" class="ethAddress"></label></div>
+    <div><label>Token Published at: <input type="text" readonly name="tokenAddress" value="" class="ethAddress"></label></div>
+</form>
+
+<h2>2. Manage Crowdsale </h2>
+<form id="manageCrowdsale">
+    <div><label>Crowdsale at: <input type="text" name="crowdsaleAddress" value="" class="ethAddress"></label></div>
+    <div><input type="button" id="loadCrowdsaleInfo" value="Load info"></div>
+    <table>
+        <tr><td>Token at:</td><td><input type="text" name="tokenAddress" readonly value="" class="ethAddress"></td><t/tr>
+        <tr><td>Is ICO open:</td><td><input type="text" name="open" readonly value="" class=""></td></tr>
+        <tr><td>Base rate:</td><td><input type="number" name="baseRate" readonly value="" class=""> DNTX = 1 ETH</td></tr>
+        <tr><td>Current rate:</td><td><input type="number" name="currentRate" readonly value="" class=""> DNTX = 1 ETH</td></tr>
+        <tr><td>Current state:</td><td><input type="text" name="currentState" readonly value="" class=""></td></tr>
+        <tr><td>ICO Start time:</td><td><input type="text" name="startTime" readonly value="" class="time"></td></tr>
+        <tr><td>ICO End time:</td><td><input type="text" name="endTime" readonly value="" class="time"></td></tr>
+        <tr><td>ICO Goal:</td><td><input type="number" name="goal" readonly value="" class="number"> ETH</td></tr>
+        <tr><td>Hard Cap:</td><td><input type="number" name="hardCap" readonly value="" class="number"> ETH</td></tr>
+        <tr><td>ICO Collected:</td><td><input type="number" name="icoCollected" readonly value="" class="number"> ETH</td></tr>
+        <tr><td>Total Collected:</td><td><input type="number" name="totalCollected" readonly value="" class="number"> ETH</td></tr>
+        <tr><td>Current balance:</td><td><input type="number" name="balance" readonly value="" class="number"> ETH</td></tr>
+    </table>
+    <table id="ICOBonuses">
+        <thead><tr>
+            <th>Apply before date</th>
+            <th>Bonus, %</th>
+        </tr></thead>
+        <tbody></tbody>
+    </table>
+
+    <h3>PreICO Setup</h3>
+    <table>
+        <tr><td>Base rate:</td><td><input type="number" name="set_baseRate" value="" class=""> DNTX = 1 ETH</td></tr>    
+        <tr><td>PreICO Bonus:</td><td><input type="number" name="set_preICOBonusPercent" value="" class=""> %</td></tr>    
+    </table>
+    <div><input type="button" id="startPreICO" value="Start PreICO"></div>
+
+    <h3>ICO Setup</h3>
+    <table>
+        <tr><td>ICO Start time:</td><td><input type="text" name="set_startTime"  value="" class="time"></td></tr>
+        <tr><td>ICO End time:</td><td><input type="text" name="set_endTime"  value="" class="time"></td></tr>
+        <tr><td>ICO Goal:</td><td><input type="number" name="set_goal"  value="" class="number"> ETH</td></tr>
+        <tr><td>Hard Cap:</td><td><input type="number" name="set_hardCap"  value="" class="number"> ETH</td></tr>
+    </table>
+    <table id="set_ICOBonuses">
+        <thead><tr>
+            <th>Apply before date</th>
+            <th>Bonus, %</th>
+        </tr></thead>
+        <tbody></tbody>
+    </table>
+    <div><input type="button" id="setupICO" value="Setup ICO"></div>
+    <div><input type="button" id="startICO" value="Stop PreICO &amp; Start ICO"></div>
+
+
+    <h3>Manage</h3>
+    <div><input type="button" id="crowdsaleClaim" value="Claim Ether"> Transfer collected Ether from the contract to your wallet</div>
+    <div><input type="button" id="crowdsaleFinalize" value="Finalize"> Finalize crowdsale: allow token transfer, change token ownership to yourself (which is required to manage token)</div>
+
+
+    <h3>Special Mint</h3>
+    <div>Beneficiary: <input type="text" name="beneficiary" value="" class="ethAddress"></div>
+    <div>Amount: <input type="text" name="amount" value="" class="number"> DNTX</div>
+    <div>Description: <input type="text" name="description" value="" class=""> <small>(reason, why are you sending this tokens)</small></div>
+    <div><input type="button" id="specialMint" value="Mint tokens"></div>
+</form>
+
+
+</body>
+</html>
+
