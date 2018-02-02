@@ -149,7 +149,7 @@ contract DNTXCrowdsale is Ownable, Destructible {
     * @notice Claim collected ether without closing crowdsale
     */
     function claimEther() onlyOwner public {
-        require(icoCollected >= icoGoal);
+        require(state == State.PreICO || icoCollected >= icoGoal);
         require(this.balance > 0);
         owner.transfer(this.balance);
     }
